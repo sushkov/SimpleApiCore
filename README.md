@@ -1,0 +1,1 @@
+SimpleApiCore - модуль для быстрого создания API на PHP.
