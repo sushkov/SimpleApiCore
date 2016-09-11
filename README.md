@@ -5,18 +5,18 @@
 `<domain>/api/method/<method_name>?<parameters>`
 #### Общий вид ответа
 Ответ от сервера в формате JSON.
-```json
+```javascript
 {response: ...} //корректный ответ
 {error: {code: ..., description: ...}} //ошибка
 ```
 #### Варианты ответа
-```json
+```javascript
 {response: {count: ..., items: [...]}} //возвращается список объектов
 {response: {success: ...}} //возврат статуса, значение 0 или 1
 {response: ...} //возврат произвольных данных
 ```
 #### Общий вид ошибок
-```json
+```javascript
 {"error": ..., "description": ...} //error - код ошибки, description - описание
 ```
 ### Пример использования
