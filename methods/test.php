@@ -6,7 +6,8 @@ class test extends ApiMethodsBase {
                                       ["name" => "getTestStatus"],
                                       ["name" => "checkTestSignature", "s" => true],
                                       ["name" => "getRequest"],
-                                      ["name" => "getSignature"]);
+                                      ["name" => "getSignature"],
+                                      ["name" => "testUserError"]);
         parent::__construct();
     }
 
@@ -38,5 +39,9 @@ class test extends ApiMethodsBase {
             $signhash = substr($signhash, 0, strlen($signhash) - 1);
         }
         return array("string" => $signhash, "signature" => sha1($signhash.$secret));
+    }
+    function testUserError($request){
+        $this->checkParameters($request, ["code", "description"]);
+        throw new ApiError($request["code"], "user", $request["description"]);
     }
 }
