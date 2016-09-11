@@ -2,11 +2,11 @@
 include_once("ApiError.php");
 class ApiRoute {
     private $uri = array();
-    private $regexp = array("uri" => "/^\/api\/method\/./",
-                            "method" => "/^\/api\/method\/(?'group'[a-zA-Z_]+)\.(?'name'[a-zA-Z_]+)(\?|$)/");
-    function __construct(){
-        if (preg_match($this->regexp["uri"], $_SERVER["REQUEST_URI"]) === 1) {
-            if (preg_match($this->regexp["method"], $_SERVER["REQUEST_URI"], $matches) === 1) {
+    private $regexp_method = "(?'group'[a-zA-Z_]+)\.(?'name'[a-zA-Z_]+)(\?|$)";
+    function __construct($prefix){
+        $prefix = preg_quote($prefix, '/');
+        if (preg_match("/".$prefix."./", $_SERVER["REQUEST_URI"]) === 1) {
+            if (preg_match("/^".$prefix.$this->regexp_method."/", $_SERVER["REQUEST_URI"], $matches) === 1) {
                 $this->uri["group"] = $matches["group"];
                 $this->uri["name"] = $matches["name"];
             } else

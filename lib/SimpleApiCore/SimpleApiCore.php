@@ -8,19 +8,21 @@ class SimpleApiCore{
     private $methods_groups;
     private $client_secret;
     private $route_core;
+    private $uri_prefix;
 
     function __construct($c){
         $this->api_dir = $c[0];
         $this->methods_dir = (isset($c[1]) && is_string($c[1])) ? $c[1] : "methods";
         $this->methods_groups = (isset($c[2]) && is_array($c[2])) ? $c[2] : array();
         $this->client_secret = (isset($c[3]) && is_string($c[3])) ? $c[3] : null;
+        $this->uri_prefix = (isset($c[4]) && is_string($c[4]) && $c[4] !== "") ? $c[4] : "/";
     }
     function __destruct(){
     }
 
     public function start(){
         try {
-            $this->route_core = new ApiRoute();
+            $this->route_core = new ApiRoute($this->uri_prefix);
 
             $method = $this->route_core->getParsedUri();
             $method_args = $_REQUEST;

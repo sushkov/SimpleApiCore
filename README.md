@@ -2,7 +2,9 @@
 Методы разделяются по группам для удобства использования (например, `auth.signIn`, группа  - `auth`, метод - `signIn`).
 Есть возможность проверки целостности данных в запросе с использованием подписи.
 #### Общий вид url запроса
-`<domain>/api/method/<method_name>?<parameters>`
+`<domain><prefix><method_name>?<parameters>`
+##### Пример url запроса
+`app.com/apishechka/auth.signIn?login=test&passwd=1234`
 #### Общий вид ответа
 Ответ от сервера в формате JSON.
 ```javascript
@@ -28,7 +30,8 @@
         $_SERVER["DOCUMENT_ROOT"], //рабочая директория для файлов API
         "methods", //имя директории с методами (по умолчанию - "methods")
         array("test"), //список имен груп методов API
-        "test_secret" //секретная строка для подписывания запросов
+        "test_secret", //секретная строка для подписывания запросов
+        "/apishechka/" //префикс для url метода (по умолчанию - '')
     );
     $api_core = new SimpleApiCore($api_config);
     $api_core->start();
